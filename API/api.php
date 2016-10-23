@@ -1,33 +1,33 @@
 <?php
  
-// get the HTTP method, path and body of the request
+// Haal de HTTP methode op, het urlpad en de request(JSON)
 $method = $_SERVER['REQUEST_METHOD'];
 $request = explode('/', trim($_SERVER['PATH_INFO'],'/'));
 $input = json_decode(file_get_contents('php://input'),true);
  
-// connect to the mysql database
+// Verbind met de mysql database
 $link = mysqli_connect('localhost', 'root', 'root', 'testAPI');
 mysqli_set_charset($link,'utf8');
  
-// retrieve the table and key from the path
+// Tabel en sleutel filteren uit het urlpad
 $table = preg_replace('/[^a-z0-9_]+/i','',array_shift($request));
 $key = array_shift($request)+0;
  
-// escape the columns and values from the input object
+// zorg voor duidelijke input, verwijder overtollige tekens/data
 $columns = preg_replace('/[^a-z0-9_]+/i','',array_keys($input));
 $values = array_map(function ($value) use ($link) {
   if ($value===null) return null;
   return mysqli_real_escape_string($link,(string)$value);
 },array_values($input));
  
-// build the SET part of the SQL command
+// bouw het SET gedeelte op voor het SQL commando
 $set = '';
 for ($i=0;$i<count($columns);$i++) {
   $set.=($i>0?',':'').'`'.$columns[$i].'`=';
   $set.=($values[$i]===null?'NULL':'"'.$values[$i].'"');
 }
  
-// create SQL based on HTTP method
+// Maak de SQL-string naargelang de HTTP-methode
 switch ($method) {
   case 'GET':
     $sql = "select * from `$table`".($key?" WHERE id=$key":''); break;
@@ -41,27 +41,27 @@ switch ($method) {
     $sql = "delete from categories where id='5'"; break;
 }
  
-// execute SQL statement
+// Voer SQL commando uit
 $result = mysqli_query($link,$sql);
  
-// die if SQL statement failed
+// Genereer foutmelding indien SQL commando foutief is
 if (!$result) {
   http_response_code(404);
   die(mysqli_error());
 }
  
-// print results, insert id or affected row count
+// Toon resultaat in browser (visueel testen)
 if ($method == 'GET') {
   if (!$key) echo '[';
   for ($i=0;$i<mysqli_num_rows($result);$i++) {
     echo ($i>0?',':'').json_encode(mysqli_fetch_object($result));
-  }
-  if (!$key) echo ']';
+  }}
+  /*if (!$key) echo ']';
 } elseif ($method == 'POST') {
   echo mysqli_insert_id($link);
 } else {
   echo mysqli_affected_rows($link);
-}
+}*/
  
-// close mysql connection
+// Sluit de SQL verbinding
 mysqli_close($link);
