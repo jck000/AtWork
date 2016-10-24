@@ -22,7 +22,7 @@
 		$servername = "localhost";
 		$username = "root";
 		$password = "root";
-		$dbname = "testAPI";
+		$dbname = "AtWork";
 		$status = null;
 
 		// Create connection
@@ -33,11 +33,11 @@
      		die("Connection failed: " . $conn->connect_error);
 		} 
 
-		$sql = "SELECT id, name, icon FROM categories";
+		$sql = "SELECT deviceID, datum, tijd FROM werknemers";
 		$result = $conn->query($sql);
 
 		if ($status == null){
-			$verbinding = "<p>Databaseverbinding: <img src='img/green.png' width='15' height='15' /></p>";
+			$verbinding = "<p>Databaseverbinding: <img src='img/green.gif' width='15' height='15' /></p>";
 		}
 		else{
 			$verbinding = "<p>Databaseverbinding: <img src='img/red.png' width='15' height='15' /></p>";
@@ -47,11 +47,13 @@
 		<div class='row col-md-6 custyle'>
 			<h1>AtWork</h1>
     		".$verbinding."
+    	<form action='' method='get'>
     	<table class='table table-striped custab'>
     	<thead>
         	<tr>
             	<th>DeviceID</th>
-            	<th>Titel</th>
+            	<th>Datum</th>
+            	<th>Tijd</th>
             	<th class='text-center'>Actie</th>
         	</tr>
     	</thead>";
@@ -61,22 +63,31 @@
      		while($row = $result->fetch_assoc()) {
          	/*echo "<br> id: ". $row["id"]. " - Name: ". $row["name"]. " Icon: " . $row["icon"] . "<br>";*/
          	echo "<tr>";
-         	echo "<td>".$row["id"]."</td>";
-         	echo "<td>".$row["name"]."</td>";
-         	echo "<td class='text-center'> <a href='#' class='btn btn-danger btn-xs'><span class='glyphicon glyphicon-remove'></span> Del</a></td>";
+         	echo "<td>".$row["deviceID"]."</td>";
+         	echo "<td>".$row["datum"]."</td>";
+         	echo "<td>".$row["tijd"]."</td>";
+         	echo "<td class='text-center'><a href='http://localhost/atwork_webpage/webpage.php?id=".$row['deviceID']."'  id='delete' name='deleteItem' value='Verwijderen' class='btn btn-danger btn-xs'>Verwijderen</a></td>";
          	echo "</tr>";
      		}
 		} else {
      		echo "0 results";
 			}
 
+		echo "</form>";
 		echo "</table>";
 		echo "<p><img src='img/loading.gif' width='25' height='25' />&nbsp;Deze pagina vernieuwt zich automatisch na <b>2</b> minuten</p>";
 		echo "</div>";
 		echo "</div>";
 
-		$conn->close();
+		
+		//Delete knop (verwijder item)
+		//$getIdUrl = $_GET['id'];
+		//$sql = "DELETE FROM werknemers WHERE deviceID=".$getIdUrl."";
+		//$conn->query($sql);
+		
+		
 
+		$conn->close();
 	?>  
 
 </body>
