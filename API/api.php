@@ -4,7 +4,8 @@
  *
  * @Description: API service that handle request-methods with data(JSON) and push it to mysql-database
  *               Test it with httpRequester, add json data to 'content to send' and use POST/DELETE method
- *               JSON input example: {"deviceID":"12345678900","datum":"2016-01-01","tijd":"16:03:33"}
+ *               JSON POST (input) example: {"deviceID":"12345678900","datum":"2016-01-01","tijd":"16:03:33"}
+ *               JSON DELETE example: use http-delete method and execute via url, http://localhost/api.php/werknemers/007 
  */
  
 // Haal de HTTP methode op, het urlpad en de request(JSON)
@@ -45,8 +46,8 @@ switch ($method) {
     $sql = "insert into `$table` set $set"; break;
     /*$sql = "insert into categories (id) values ('5')"; break;*/
   case 'DELETE':
-    /*$sql = "delete `$table` where id=$set"; break;*/
-    $sql = "delete from werknemers where deviceID='12345678'"; break;
+    $sql = "delete from werknemers where deviceID=$key"; break;
+    /*$sql = "delete from werknemers where deviceID=$set"; break;*/
 }
  
 // Voer SQL commando uit indien toegelaten!
