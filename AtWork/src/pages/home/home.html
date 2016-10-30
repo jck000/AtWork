@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="primary">
     <ion-title>
       AtWork - Homepage
     </ion-title>
@@ -7,13 +7,15 @@
 </ion-header>
 
 <ion-content padding>
-  <h1>AtWork</h1>
-  <p>
-    Gelieve je in/uit de werkzone te begeven!
-  </p>
+  <ion-card>
+    <ion-card-content>
+      Gelieve je in/uit de werkzone te begeven!
+    </ion-card-content>
+  </ion-card>
 
-  <ion-card-content>
-    <button [navPush]="settings">Instellingen</button>
+  <ion-card-content id="settingsButton">
+    <img src="/assets/settingsIcon.png" width="40px" height="40px" [navPush]="settings"/>
+    <button (click)="GetRequest()">Druk hier om POST request uit te voeren</button>
   </ion-card-content>
 
 </ion-content>
