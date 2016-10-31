@@ -6,6 +6,7 @@ import { Device } from 'ionic-native';
 @Injectable()
 export class RequestToApi {
 
+
   constructor(public zone: NgZone, public http : Http) {
 
   }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-
+import { Device } from 'ionic-native';
 /*
   Generated class for the Settings page.
 
@@ -13,7 +13,18 @@ import { NavController } from 'ionic-angular';
 })
 export class Settings {
 
-  constructor(public navCtrl: NavController) {}
+  public ID;
+  public Serial;
+  public Version;
+  public Manufacturer;
 
+  constructor(public navCtrl: NavController) {
+
+      this.ID = Device.device.uuid;
+      this.Serial = Device.device.serial;
+      this.Version = Device.device.version;
+      this.Manufacturer = Device.device.manufacturer;
+  }
 
 }
+
