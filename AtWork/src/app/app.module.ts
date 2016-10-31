@@ -3,6 +3,8 @@ import { IonicApp, IonicModule } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { Settings } from '../pages/settings/settings';
+import { RequestToApi } from '../providers/request-to-api';
+
 
 @NgModule({
   declarations: [
@@ -19,6 +21,6 @@ import { Settings } from '../pages/settings/settings';
     HomePage,
     Settings
   ],
-  providers: []
+  providers: [RequestToApi]
 })
 export class AppModule {}

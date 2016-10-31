@@ -14,8 +14,9 @@
   </ion-card>
 
   <ion-card-content id="settingsButton">
-    <img src="/assets/settingsIcon.png" width="40px" height="40px" [navPush]="settings"/>
-    <button (click)="GetRequest()">Druk hier om POST request uit te voeren</button>
+    <button ion-button full primary (click)="post()">POST-request</button>
+    <button ion-button full primary (click)="delete()">DELETE-request</button>
+    <img src="assets/img/settingsIcon.png" width="40px" height="40px" [navPush]="settings"/>
   </ion-card-content>
 
 </ion-content>
