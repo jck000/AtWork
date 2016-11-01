@@ -27,10 +27,11 @@
 
 		// Create connection
 		$conn = new mysqli($servername, $username, $password, $dbname);
+		
 		// Check connection
 		if ($conn->connect_error) {
 			$status = "Geen verbinding met database!";
-     		die("Connection failed: " . $conn->connect_error);
+     		die("<p>Databaseverbinding: <img src='img/red.png' width='15' height='15' /></p>");
 		} 
 
 		$sql = "SELECT deviceID, datum, tijd FROM werknemers";
@@ -66,7 +67,7 @@
          	echo "<td>".$row["deviceID"]."</td>";
          	echo "<td>".$row["datum"]."</td>";
          	echo "<td>".$row["tijd"]."</td>";
-         	echo "<td class='text-center'><a href='http://localhost/atwork_webpage/webpage.php?id=".$row['deviceID']."'  id='delete' name='deleteItem' value='Verwijderen' class='btn btn-danger btn-xs'>Verwijderen</a></td>";
+         	echo "<td class='text-center'><a href='http://localhost/atwork_webpage/delete.php?id=".$row['deviceID']."'  id='delete' name='deleteItem' value='Verwijderen' class='btn btn-danger btn-xs'>Verwijderen</a></td>";
          	echo "</tr>";
      		}
 		} else {
