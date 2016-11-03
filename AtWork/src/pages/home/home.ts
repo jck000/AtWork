@@ -8,6 +8,8 @@ import { HTTP } from 'ionic-native';
 //import { BatteryStatus } from 'ionic-native';
 import { Settings } from '../settings/settings';
 import { RequestToApi } from '../../providers/request-to-api';
+import { GeofenceService } from '../../providers/geofence-service';
+import { Geofence } from 'ionic-native';
 
 
 @Component({
@@ -18,7 +20,7 @@ export class HomePage {
 
   settings = Settings;
 
-  constructor(public navCtrl: NavController, public requestToApi: RequestToApi) {
+  constructor(public navCtrl: NavController, public requestToApi: RequestToApi, public geofenceService: GeofenceService) {
 
   }
 
@@ -28,6 +30,10 @@ export class HomePage {
 
   delete(){
     this.requestToApi.deleteRequest();
+  }
+
+  enter(){
+    this.geofenceService.EnterZone();
   }
 
 }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
-import { StatusBar, Splashscreen } from 'ionic-native';
+import { StatusBar, Splashscreen, Geofence } from 'ionic-native';
 
 import { HomePage } from '../pages/home/home';
 
@@ -15,8 +15,21 @@ export class MyApp {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
+
+      document.addEventListener('deviceready', function () {
+        // window.geofence is now available
+        Geofence.initialize().then(function () {
+          console.log("Successful initialization");
+        }, function (error) {
+          console.log("Error", error);
+        });
+      }, false);
+
+
       StatusBar.styleDefault();
       Splashscreen.hide();
     });
+
+
   }
 }

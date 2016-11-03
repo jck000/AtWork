@@ -1,7 +1,7 @@
 import { Injectable, NgZone } from '@angular/core';
 import 'rxjs/add/operator/filter';
 import {Http} from '@angular/http';
-import { Device } from 'ionic-native';
+import { Device, DatePicker } from 'ionic-native';
 
 @Injectable()
 export class RequestToApi {
@@ -15,7 +15,7 @@ export class RequestToApi {
 
     var ID = Device.device.uuid;
 
-    let url = 'http://192.168.0.141/api.php/werknemers';
+    let url = 'http://192.168.0.249/api.php/werknemers';
 
     var data = JSON.stringify({deviceID: ID, datum: "2016-10-31", tijd: "16:03:53"});
 
@@ -34,7 +34,7 @@ export class RequestToApi {
 
     var ID = Device.device.uuid;
 
-    let url = 'http://192.168.0.141/api.php/werknemers/' + ID;
+    let url = 'http://192.168.0.249/api.php/werknemers/' + ID;
 
     this.http.delete(url)
       .subscribe(res =>

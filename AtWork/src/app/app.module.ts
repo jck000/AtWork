@@ -4,6 +4,7 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { Settings } from '../pages/settings/settings';
 import { RequestToApi } from '../providers/request-to-api';
+import { GeofenceService } from '../providers/geofence-service';
 
 
 @NgModule({
@@ -21,6 +22,6 @@ import { RequestToApi } from '../providers/request-to-api';
     HomePage,
     Settings
   ],
-  providers: [RequestToApi]
+  providers: [RequestToApi, GeofenceService]
 })
 export class AppModule {}
