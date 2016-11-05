@@ -1,7 +1,7 @@
 import { Injectable, NgZone } from '@angular/core';
 import 'rxjs/add/operator/filter';
 import {Http} from '@angular/http';
-import { Device, DatePicker } from 'ionic-native';
+import { Device } from 'ionic-native';
 
 @Injectable()
 export class RequestToApi {
@@ -37,9 +37,6 @@ export class RequestToApi {
   }
 
   deleteRequest(){
-    /*let headers= new Headers();
-    headers.append("Content-Type", "text/html");
-    let options= new RequestOptions({headers:headers});*/
 
     var ID = Device.device.uuid;
 

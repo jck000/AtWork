@@ -7,16 +7,19 @@
 </ion-header>
 
 <ion-content padding>
+  <img src="assets/img/green.gif" width="25px" height="25px" />
   <ion-card>
     <ion-card-content>
       Gelieve je in/uit de werkzone te begeven!
     </ion-card-content>
   </ion-card>
-
+  <ion-card-header>
+    <br/><br/><br/><hr/>TestButtons
+  </ion-card-header>
   <ion-card-content id="settingsButton">
-    <button ion-button full primary (click)="post()">POST-request</button>
-    <button ion-button full primary (click)="delete()">DELETE-request</button>
-    <button ion-button full primary (click)="enter()">Maak geofence aan</button>
+    <button ion-button full primary (click)="post()" round>POST-request</button>
+    <button ion-button full primary (click)="delete()" round>DELETE-request</button>
+    <button ion-button full primary (click)="enter()" round>Maak geofence aan</button>
     <img src="assets/img/settingsIcon.png" width="40px" height="40px" [navPush]="settings"/>
   </ion-card-content>
 

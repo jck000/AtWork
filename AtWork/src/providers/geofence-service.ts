@@ -16,7 +16,7 @@ export class GeofenceService {
   //*******************  Geofence staat ingesteld op thuisadres Niels Bekkers  *******************//
   public latitude = 51.055755;
   public longitude = 5.286769;
-  public radius = 100;
+  public radius = 50;
   //**********************************************************************************************//
 
   constructor(public http: Http, public requestToApi: RequestToApi) {
