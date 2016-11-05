@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Device } from 'ionic-native';
+import { Facebook } from 'ionic-native';
 /*
   Generated class for the Settings page.
 
@@ -24,6 +25,14 @@ export class Settings {
       this.Serial = Device.device.serial;
       this.Version = Device.device.version;
       this.Manufacturer = Device.device.manufacturer;
+  }
+
+  login() {
+    Facebook.browserInit(185203801884323);
+    Facebook.login(['public_profile']);
+  }
+  logout(){
+    Facebook.logout();
   }
 
 }

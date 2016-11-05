@@ -6,7 +6,6 @@ import { Settings } from '../pages/settings/settings';
 import { RequestToApi } from '../providers/request-to-api';
 import { GeofenceService } from '../providers/geofence-service';
 
-
 @NgModule({
   declarations: [
     MyApp,
