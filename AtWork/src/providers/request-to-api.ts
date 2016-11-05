@@ -15,9 +15,18 @@ export class RequestToApi {
 
     var ID = Device.device.uuid;
 
-    let url = 'http://192.168.0.249/api.php/werknemers';
+    var dateobj = new Date();
+    function pad(n) {return n < 10 ? "0"+n : n;}
+    var resultDatum = dateobj.getFullYear()+"-"+pad(dateobj.getMonth()+1)+"-"+pad(dateobj.getDate());
 
-    var data = JSON.stringify({deviceID: ID, datum: "2016-10-31", tijd: "16:03:53"});
+    var berekenUren = new Date().getHours();
+    var berekenMinuten = new Date().getMinutes();
+    var berekenSeconden = new Date().getSeconds();
+    var totaleTijd = berekenUren+":"+berekenMinuten+":"+berekenSeconden;
+
+    let url = 'http://192.168.0.141/api.php/werknemers';
+
+    var data = JSON.stringify({deviceID: ID, datum: resultDatum, tijd: totaleTijd});
 
     this.http.post(url, data)
       .subscribe(data =>
@@ -34,7 +43,7 @@ export class RequestToApi {
 
     var ID = Device.device.uuid;
 
-    let url = 'http://192.168.0.249/api.php/werknemers/' + ID;
+    let url = 'http://192.168.0.141/api.php/werknemers/' + ID;
 
     this.http.delete(url)
       .subscribe(res =>
