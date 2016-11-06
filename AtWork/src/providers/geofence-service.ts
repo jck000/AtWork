@@ -14,8 +14,8 @@ import { RequestToApi } from '../providers/request-to-api';
 export class GeofenceService {
 
   //*******************  Geofence staat ingesteld op thuisadres Niels Bekkers  *******************//
-  public latitude = 51.055755;
-  public longitude = 5.286769;
+  public latitude = 51.055774;
+  public longitude = 5.287059;
   public radius = 50;
   //**********************************************************************************************//
 
@@ -23,13 +23,13 @@ export class GeofenceService {
     console.log('Hello GeofenceService Provider');
   }
 
-  EnterZone(){
+  AddZones(){
     Geofence.addOrUpdate({
-      id:             1, //A unique identifier of geofence
+      id:             this.EnterID(), //A unique identifier of geofence
       latitude:       this.latitude, //Geo latitude of geofence
       longitude:      this.longitude, //Geo longitude of geofence
       radius:         this.radius, //Radius of geofence in meters
-      transitionType: Geofence.TransitionType.BOTH, //Type of transition 1 - Enter, 2 - Exit, 3 - Both
+      transitionType: Geofence.TransitionType.ENTER, //Type of transition 1 - Enter, 2 - Exit, 3 - Both
       notification: {         //Notification object
         id:             1, //optional should be integer, id of notification
         title:          "Welkom op het bedrijf", //Title of notification
@@ -45,26 +45,19 @@ export class GeofenceService {
       console.log('Adding geofence failed', reason);
     });
 
-    /*if (Geofence.TransitionType.ENTER == 1){
-      this.requestToApi.postRequest();
-    }*/
-
-  }
-
-  LeaveZone(){
     Geofence.addOrUpdate({
-      id:             2, //A unique identifier of geofence
+      id:             this.LeaveID(), //A unique identifier of geofence
       latitude:       this.latitude, //Geo latitude of geofence
       longitude:      this.longitude, //Geo longitude of geofence
       radius:         this.radius, //Radius of geofence in meters
-      transitionType: 2, //Type of transition 1 - Enter, 2 - Exit, 3 - Both
+      transitionType: Geofence.TransitionType.EXIT, //Type of transition 1 - Enter, 2 - Exit, 3 - Both
       notification: {         //Notification object
         id:             2, //optional should be integer, id of notification
         title:          "U verlaat het bedrijf", //Title of notification
-        text:           "Je bent succesvol uitgetikt, Tot de volgende keer!", //Text of notification
+        text:           "Je bent succesvol uitgetikt, tot de volgende keer! ", //Text of notification
         smallIcon:      String, //Small icon showed in notification area, only res URI
         icon:           String, //icon showed in notification drawer
-        openAppOnClick: Boolean,//is main app activity should be opened after clicking on notification
+        openAppOnClick: true,//is main app activity should be opened after clicking on notification
         data:           Object  //Custom object associated with notification
       }
     }).then(function () {
@@ -72,6 +65,21 @@ export class GeofenceService {
     }, function (reason) {
       console.log('Adding geofence failed', reason);
     });
+
+
+    /*if (Geofence.TransitionType.ENTER == 1){
+      this.requestToApi.postRequest();
+    }
+    else{
+      console.log('IF LUS NIET UITGEVOERD');
+    }*/
+
+  }
+  EnterID(){
+    return "Binnenkomen zone";
+  }
+  LeaveID(){
+    return "Verlaten zone";
   }
 
 }
