@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Device } from 'ionic-native';
-import { Facebook } from 'ionic-native';
+import { Facebook, Diagnostic } from 'ionic-native';
 /*
   Generated class for the Settings page.
 
@@ -15,24 +15,31 @@ import { Facebook } from 'ionic-native';
 export class Settings {
 
   public ID;
-  public Serial;
   public Version;
   public Manufacturer;
+  public locationEnabled;
 
   constructor(public navCtrl: NavController) {
 
       this.ID = Device.device.uuid;
-      this.Serial = Device.device.serial;
       this.Version = Device.device.version;
       this.Manufacturer = Device.device.manufacturer;
+      this.toestelDiagnose();
   }
 
   login() {
     Facebook.browserInit(185203801884323);
     Facebook.login(['public_profile']);
   }
+
   logout(){
     Facebook.logout();
+  }
+
+  toestelDiagnose(){
+    let successCallback = (isAvailable) => { this.locationEnabled = "Locatieservice actief"; };
+    Diagnostic.isLocationEnabled().then(successCallback);
+
   }
 
 }

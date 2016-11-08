@@ -1,27 +1,40 @@
 <ion-header>
   <ion-navbar color="primary">
     <ion-title>
-      AtWork - Homepage
+      AtWork
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <img src="assets/img/green.gif" width="25px" height="25px" />
+  <p>&nbsp;&nbsp;<img src="assets/img/gps_loading.gif" width="30px" height="30px" /></p>
   <ion-card>
     <ion-card-content>
       Gelieve je in/uit de werkzone te begeven!
+      <hr/>Deze applicatie gaat jezelf automatisch in- en uitchecken in een bedrijf.
+      Om je aanwezigheid te bevestigen maak je kortstondig gebruik van je vingerafdruk of alternatieve pincode
     </ion-card-content>
   </ion-card>
   <ion-card-header>
-    <br/><br/><br/><hr/>TestButtons
+    <br/><br/><br/><hr/>TestButtons (testfase)
   </ion-card-header>
   <ion-card-content id="settingsButton">
     <button ion-button full primary (click)="post()" round>POST-request</button>
     <button ion-button full primary (click)="delete()" round>DELETE-request</button>
     <button ion-button full primary (click)="enter()" round>Maak geofence aan</button>
     <button ion-button full primary (click)="touchID()" round>TouchID</button>
-    <img src="assets/img/settingsIcon.png" width="40px" height="40px" [navPush]="settings"/>
   </ion-card-content>
 
 </ion-content>
+<ion-footer>
+  <ion-toolbar>
+
+
+    <ion-buttons end>
+      <button ion-button color="royal"[navPush]="settings">
+        <img src="assets/img/settingsIcon.png" width="30px" height="30px" [navPush]="settings"/>
+      </button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-footer>
