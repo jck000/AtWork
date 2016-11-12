@@ -15,7 +15,7 @@
 
 <ion-content padding>
 
-  <ion-card>
+  <ion-card class="colorContent">
     <ion-card-header>
       Toestel Informatie<hr/>
     </ion-card-header>
@@ -42,9 +42,15 @@
   </ion-card>
   <br/>
 
-  <ion-card>
+  <ion-card class="colorContent">
     <ion-card-header>
-      Facebook
+      <table>
+        <tr>
+          <td>Facebook</td>
+          <td><img src="assets/img/fbLoading.gif"  id="fbLoading" width="30px" height="30px" /></td>
+        </tr>
+      </table>
+     <!-- Facebook <img src="assets/img/fbLoading.gif" width="30px" height="30px" />-->
     </ion-card-header>
     <ion-card-content>
       <button ion-button color="blue" outline round (click)="login()"><ion-icon name="logo-facebook"></ion-icon> &nbsp;Verbind</button>
@@ -53,7 +59,7 @@
   </ion-card>
   <br/>
 
-  <ion-card>
+  <ion-card class="colorContent">
     <ion-card-header>
       Applicatie Info
     </ion-card-header>

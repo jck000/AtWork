@@ -7,7 +7,7 @@
 </ion-header>
 
 <ion-content padding class="background">
-  <p>&nbsp;&nbsp;<img src="assets/img/gps_loading.gif" width="30px" height="30px" /></p>
+  <p>&nbsp;&nbsp;<img src="assets/img/loading.gif" width="30px" height="30px" /></p>
   <ion-card>
     <ion-card-content>
       Gelieve je in/uit de werkzone te begeven!
@@ -19,20 +19,22 @@
     <br/><br/><br/><hr/>TestButtons (testfase)
   </ion-card-header>
   <ion-card-content id="settingsButton">
+    <button ion-button class="fingerprintbutton" (click)="touchID()"><ion-icon class="fingerprinticon" name="finger-print"></ion-icon></button>
     <button ion-button color="light" full primary (click)="post()" round>POST-request</button>
     <button ion-button color="danger" full primary (click)="delete()" round>DELETE-request</button>
     <button ion-button color="light" full primary (click)="enter()" round>Maak geofence aan</button>
-    <button ion-button color="danger" full primary (click)="touchID()" round>TouchID</button>
+    <!--<button ion-button color="danger" full primary (click)="touchID()" round>TouchID</button>-->
   </ion-card-content>
 
 </ion-content>
 <ion-footer>
-  <ion-toolbar>
+  <ion-toolbar color="secondary">
 
 
     <ion-buttons end>
       <button ion-button color="royal"[navPush]="settings">
-        <img src="assets/img/settingsIcon.png" width="30px" height="30px" [navPush]="settings"/>
+        <!--<img src="assets/img/settingsIcon.png" width="30px" height="30px" [navPush]="settings"/>-->
+        <ion-icon ios="md-build" name="md-build" class="settingsIonicon"></ion-icon>
       </button>
     </ion-buttons>
 

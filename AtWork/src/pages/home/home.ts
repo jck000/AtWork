@@ -9,7 +9,7 @@ import { HTTP } from 'ionic-native';
 import { Settings } from '../settings/settings';
 import { RequestToApi } from '../../providers/request-to-api';
 import { GeofenceService } from '../../providers/geofence-service';
-import { Geofence, TouchID, PinDialog } from 'ionic-native';
+import { Geofence, TouchID, PinDialog, AndroidFingerprintAuth, Device } from 'ionic-native';
 
 
 @Component({
@@ -25,11 +25,23 @@ export class HomePage {
   }
 
   post(){
-    this.requestToApi.postRequest();
+    TouchID.verifyFingerprintWithCustomPasswordFallbackAndEnterPasswordLabel(
+      'Scan vingerafdruk / Voer code in!',
+      'Code invoeren')
+      .then(
+        res => this.voerPostUit(),
+        err => this.notAvailable()
+      );
   }
 
   delete(){
-    this.requestToApi.deleteRequest();
+    TouchID.verifyFingerprintWithCustomPasswordFallbackAndEnterPasswordLabel(
+      'Scan vingerafdruk / Voer code in!',
+      'Code invoeren')
+      .then(
+        res => this.voerDeleteUit(),
+        err => this.notAvailable()
+      );
   }
 
   enter(){
@@ -37,33 +49,55 @@ export class HomePage {
   }
 
   touchID(){
+    var platform = Device.device.manufacturer;
 
-    TouchID.verifyFingerprintWithCustomPasswordFallbackAndEnterPasswordLabel(
-      'Scan vingerafdruk / Voer code in!',
-      'Code invoeren')
-      .then(
-        res => this.available(),
-        err => this.notAvailable()
-      );
+    if (platform == "Apple"){
+      TouchID.verifyFingerprintWithCustomPasswordFallbackAndEnterPasswordLabel(
+        'Scan vingerafdruk / Voer code in!',
+        'Code invoeren')
+        .then(
+          res => alert("succes"),
+          err => this.notAvailable()
+        );
+    }
+    else{
 
-    //PinDialog Werkt niet?
+      AndroidFingerprintAuth.isAvailable()
+        .then((result)=> {
+          if(result.isAvailable){
+            // it is available
 
-    /*PinDialog.prompt('Enter your PIN', 'Verify PIN', ['OK', 'Cancel'])
-      .then(
-        (result: any) => {
-          if (result.buttonIndex == 1) console.log('User clicked OK, value is: ', result.input1);
-          else if(result.buttonIndex == 2) console.log('User cancelled');
-        }
-      );*/
+            AndroidFingerprintAuth.show({ clientId: "myAppName", clientSecret: "so_encrypted_much_secure_very_secret" })
+              .then(result => {
+                if(result.withFingerprint) {
+                  console.log('Successfully authenticated with fingerprint!');
+                } else if(result.withPassword) {
+                  console.log('Successfully authenticated with backup password!');
+                } else console.log('Didn\'t authenticate!');
+              })
+
+
+          } else {
+            // fingerprint auth isn't available
+          }
+        })
+    }
   }
-
-  available(){
-    alert("Succes!");
+  voerPostUit(){
+    this.requestToApi.postRequest();
+    alert("Post-request succesvol uitgevoerd!");
+  }
+  voerDeleteUit(){
+    this.requestToApi.deleteRequest();
+    alert("Delete-request succesvol uitgevoerd!");
   }
   notAvailable(){
     alert("Niet Beschikbaar!");
-  }
 
+    //PinDialog werkt niet in Ionic 2, zit een bug in die niet opgelost wordt
+    //PinDialog.prompt('Enter your PIN', 'Verify PIN', ['OK', 'Cancel']);
+
+  }
 
 }
 

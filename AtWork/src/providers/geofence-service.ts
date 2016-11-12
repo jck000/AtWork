@@ -45,7 +45,15 @@ export class GeofenceService {
       console.log('Adding geofence failed', reason);
     });
 
-    Geofence.addOrUpdate({
+    /*Geofence.onTransitionReceived = function (geofences) {
+      geofences.forEach(function (geo) {
+        console.log('Geofence transition detected', geo);
+      });
+    });*/
+
+
+
+      Geofence.addOrUpdate({
       id:             this.LeaveID(), //A unique identifier of geofence
       latitude:       this.latitude, //Geo latitude of geofence
       longitude:      this.longitude, //Geo longitude of geofence
@@ -65,14 +73,6 @@ export class GeofenceService {
     }, function (reason) {
       console.log('Adding geofence failed', reason);
     });
-
-
-    /*if (Geofence.TransitionType.ENTER == 1){
-      this.requestToApi.postRequest();
-    }
-    else{
-      console.log('IF LUS NIET UITGEVOERD');
-    }*/
 
   }
   EnterID(){

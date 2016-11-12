@@ -18,6 +18,7 @@ export class Settings {
   public Version;
   public Manufacturer;
   public locationEnabled;
+  //public status;
 
   constructor(public navCtrl: NavController) {
 
@@ -25,6 +26,7 @@ export class Settings {
       this.Version = Device.device.version;
       this.Manufacturer = Device.device.manufacturer;
       this.toestelDiagnose();
+      //this.facebookStatus();
   }
 
   login() {
@@ -35,11 +37,17 @@ export class Settings {
   logout(){
     Facebook.logout();
   }
+  facebookStatus(){
+    //this.status = Facebook.getLoginStatus();
+    //Facebook.getLoginStatus().then(
+     // (status) => {
+       // console.log("current status: ", status.status);
+      //});
+  }
 
   toestelDiagnose(){
     let successCallback = (isAvailable) => { this.locationEnabled = "Locatieservice actief"; };
     Diagnostic.isLocationEnabled().then(successCallback);
-
   }
 
 }
