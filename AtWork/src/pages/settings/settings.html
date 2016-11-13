@@ -1,8 +1,6 @@
 <!--
   Generated template for the Settings page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
+  @Author: Niels Bekkers
 -->
 <ion-header>
 
@@ -50,11 +48,11 @@
           <td><img src="assets/img/fbLoading.gif"  id="fbLoading" width="30px" height="30px" /></td>
         </tr>
       </table>
-     <!-- Facebook <img src="assets/img/fbLoading.gif" width="30px" height="30px" />-->
     </ion-card-header>
     <ion-card-content>
       <button ion-button color="blue" outline round (click)="login()"><ion-icon name="logo-facebook"></ion-icon> &nbsp;Verbind</button>
       <button ion-button color="blue" outline round (click)="logout()"><ion-icon name="logo-facebook"></ion-icon> &nbsp;Verbreek</button>
+      <p><br/>&nbsp;Status: <u>{{fbLogin}}</u></p>
     </ion-card-content>
   </ion-card>
   <br/>

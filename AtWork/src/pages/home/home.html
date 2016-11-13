@@ -1,3 +1,7 @@
+<!--
+  Generated template for the Home page.
+  @Author: Niels Bekkers
+-->
 <ion-header>
   <ion-navbar color="secondary">
     <ion-title>
@@ -23,17 +27,13 @@
     <button ion-button color="light" full primary (click)="post()" round>POST-request</button>
     <button ion-button color="danger" full primary (click)="delete()" round>DELETE-request</button>
     <button ion-button color="light" full primary (click)="enter()" round>Maak geofence aan</button>
-    <!--<button ion-button color="danger" full primary (click)="touchID()" round>TouchID</button>-->
   </ion-card-content>
 
 </ion-content>
 <ion-footer>
   <ion-toolbar color="secondary">
-
-
     <ion-buttons end>
       <button ion-button color="royal"[navPush]="settings">
-        <!--<img src="assets/img/settingsIcon.png" width="30px" height="30px" [navPush]="settings"/>-->
         <ion-icon ios="md-build" name="md-build" class="settingsIonicon"></ion-icon>
       </button>
     </ion-buttons>

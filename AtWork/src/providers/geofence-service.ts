@@ -6,9 +6,7 @@ import { RequestToApi } from '../providers/request-to-api';
 
 /*
   Generated class for the GeofenceService provider.
-
-  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
-  for more info on providers and Angular 2 DI.
+ @Author: Niels Bekkers
 */
 @Injectable()
 export class GeofenceService {

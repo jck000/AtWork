@@ -3,6 +3,11 @@ import 'rxjs/add/operator/filter';
 import {Http} from '@angular/http';
 import { Device } from 'ionic-native';
 
+/*
+ Generated class for the RequestToApi provider.
+ @Author: Niels Bekkers
+ */
+
 @Injectable()
 export class RequestToApi {
 

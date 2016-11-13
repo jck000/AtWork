@@ -1,16 +1,15 @@
 import { Component } from '@angular/core';
 
 import { NavController } from 'ionic-angular';
-//import { Headers } from '@angular/http';
-import { HTTP } from 'ionic-native';
-//import { Device } from 'ionic-native';
-//import { TouchID } from 'ionic-native';
-//import { BatteryStatus } from 'ionic-native';
 import { Settings } from '../settings/settings';
 import { RequestToApi } from '../../providers/request-to-api';
 import { GeofenceService } from '../../providers/geofence-service';
-import { Geofence, TouchID, PinDialog, AndroidFingerprintAuth, Device } from 'ionic-native';
+import { Geofence, TouchID, Toast, AndroidFingerprintAuth, Device, Network, Vibration } from 'ionic-native';
 
+/*
+ Generated class for the Home page.
+ @Author: Niels Bekkers
+ */
 
 @Component({
   selector: 'page-home',
@@ -22,16 +21,43 @@ export class HomePage {
 
   constructor(public navCtrl: NavController, public requestToApi: RequestToApi, public geofenceService: GeofenceService) {
 
+    this.networkConnection();
   }
 
   post(){
-    TouchID.verifyFingerprintWithCustomPasswordFallbackAndEnterPasswordLabel(
-      'Scan vingerafdruk / Voer code in!',
-      'Code invoeren')
-      .then(
-        res => this.voerPostUit(),
-        err => this.notAvailable()
-      );
+    var platform = Device.device.manufacturer;
+
+    if (platform == "Apple"){
+      TouchID.verifyFingerprintWithCustomPasswordFallbackAndEnterPasswordLabel(
+        'Scan vingerafdruk / Voer code in!',
+        'Code invoeren')
+        .then(
+          res => this.voerPostUit(),
+          err => this.notAvailable()
+        );
+    }
+    else{
+      AndroidFingerprintAuth.isAvailable()
+        .then((result)=> {
+          if(result.isAvailable){
+            // it is available
+
+            AndroidFingerprintAuth.show({ clientId: "AtWork", clientSecret: "so_encrypted_much_secure_very_secret" })
+              .then(result => {
+                if(result.withFingerprint) {
+                  console.log('Successfully authenticated with fingerprint!');
+                  this.voerPostUit();
+                } else if(result.withPassword) {
+                  console.log('Successfully authenticated with backup password!');
+                  this.voerPostUit();
+                } else console.log('Didn\'t authenticate!');
+              })
+          } else {
+            // Android fingerprint is niet beschikbaar
+            this.notAvailable();
+          }
+        })
+    }
   }
 
   delete(){
@@ -78,25 +104,44 @@ export class HomePage {
 
 
           } else {
-            // fingerprint auth isn't available
+            // Android fingerprint is niet beschikbaar
           }
         })
     }
   }
   voerPostUit(){
     this.requestToApi.postRequest();
-    alert("Post-request succesvol uitgevoerd!");
+    Toast.show("Post-request succesvol uitgevoerd!", '2000', 'top').subscribe(
+      toast => {
+        console.log(toast);
+      });
   }
   voerDeleteUit(){
     this.requestToApi.deleteRequest();
-    alert("Delete-request succesvol uitgevoerd!");
+    Toast.show("Delete-request succesvol uitgevoerd!", '2000', 'top').subscribe(
+      toast => {
+        console.log(toast);
+      });
   }
   notAvailable(){
-    alert("Niet Beschikbaar!");
+    Toast.show("Niet Beschikbaar!", '2000', 'top').subscribe(
+      toast => {
+        console.log(toast);
+      });
 
-    //PinDialog werkt niet in Ionic 2, zit een bug in die niet opgelost wordt
+    //PinDialog werkt niet in Ionic 2, zit een bug in die niet opgelost wordt!
     //PinDialog.prompt('Enter your PIN', 'Verify PIN', ['OK', 'Cancel']);
+  }
 
+  networkConnection(){
+    // watch network for a disconnect
+    //Vibration.vibrate(1000);
+    Network.onDisconnect().subscribe(() => {
+      Toast.show("Opgelet! Er is geen netwerk beschikbaar! Voor de werking van deze applicatie heb je een netwerk nodig!", '5000', 'top').subscribe(
+        toast => {
+          console.log(toast);
+        });
+    });
   }
 
 }
