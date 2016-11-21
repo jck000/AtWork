@@ -14,5 +14,10 @@ I also designed a webpage with his own build-in dashboard, here the employer can
 
 # Ionic 2 Application
 
-<ul><li>Application that you need to run on IOS/Android</li></ul>
+<ol><li>Download Ionic2</li>
+<li>Download Node.JS</li>
+<li>Clone my project</li>
+<li>Use "npm install" command</li>
+<li>Use "ionic build IOS" command</li>
+<li>Open Xcode and run it in the emulator or on your device</li></ol>
 
