@@ -82,7 +82,10 @@ export class HomePage {
         'Scan vingerafdruk / Voer code in!',
         'Code invoeren')
         .then(
-          res => alert("succes"),
+          res =>Toast.show("Succes!", '2000', 'top').subscribe(
+                  toast => {
+                              console.log(toast);
+                            }),
           err => this.notAvailable()
         );
     }
@@ -105,6 +108,10 @@ export class HomePage {
 
           } else {
             // Android fingerprint is niet beschikbaar
+            Toast.show("Android fingerprint is niet beschikbaar!", '2000', 'top').subscribe(
+              toast => {
+                console.log(toast);
+              });
           }
         })
     }
@@ -137,7 +144,7 @@ export class HomePage {
     // watch network for a disconnect
     //Vibration.vibrate(1000);
     Network.onDisconnect().subscribe(() => {
-      Toast.show("Opgelet! Er is geen netwerk beschikbaar! Voor de werking van deze applicatie heb je een netwerk nodig!", '5000', 'top').subscribe(
+      Toast.show("Opgelet! Er is een verandering van je netwerk gedetecteerd!", '5000', 'top').subscribe(
         toast => {
           console.log(toast);
         });

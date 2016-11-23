@@ -11,22 +11,24 @@
 </ion-header>
 
 <ion-content padding class="background">
-  <p>&nbsp;&nbsp;<img src="assets/img/loading.gif" width="30px" height="30px" /></p>
+  <p>&nbsp;&nbsp;<img src="assets/img/loading_final.gif" width="30px" height="30px" /></p>
   <ion-card>
     <ion-card-content>
       Gelieve je in/uit de werkzone te begeven!
       <hr/>Deze applicatie gaat jezelf automatisch in- en uitchecken in een bedrijf.
-      Om je aanwezigheid te bevestigen maak je kortstondig gebruik van je vingerafdruk of alternatieve pincode
+      Om je aanwezigheid te bevestigen maak je kortstondig gebruik van je vingerafdruk of alternatieve pincode<hr/>
+      Bij <b>eerste gebruik</b> van deze applicatie, gelieve je te verbinden met Facebook!
     </ion-card-content>
   </ion-card>
   <ion-card-header>
-    <br/><br/><br/><hr/>TestButtons (testfase)
+    <br/><hr/>
   </ion-card-header>
   <ion-card-content id="settingsButton">
+    <p id="TouchIDLabel">TouchID</p>
     <button ion-button class="fingerprintbutton" (click)="touchID()"><ion-icon class="fingerprinticon" name="finger-print"></ion-icon></button>
     <button ion-button color="light" full primary (click)="post()" round>POST-request</button>
     <button ion-button color="danger" full primary (click)="delete()" round>DELETE-request</button>
-    <button ion-button color="light" full primary (click)="enter()" round>Maak geofence aan</button>
+    <!--<button ion-button color="light" full primary (click)="enter()" round>Maak geofence aan</button>-->
   </ion-card-content>
 
 </ion-content>

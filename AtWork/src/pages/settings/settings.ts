@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Facebook, Diagnostic, Toast, Device, Network, Vibration } from 'ionic-native';
+import { GeofenceService } from '../../providers/geofence-service';
 /*
   Generated class for the Settings page.
   @Author: Niels Bekkers
@@ -18,7 +19,7 @@ export class Settings {
   public fbLogin;
   //public status;
 
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController, public geofenceService: GeofenceService) {
 
       this.ID = Device.device.uuid;
       this.Version = Device.device.version;
@@ -31,7 +32,12 @@ export class Settings {
   }
 
   login() {
-    Facebook.login(['public_profile']);
+    Facebook.login(['public_profile'])
+      .then(function(response){
+        console.log('Succesvol ingelogd!');
+      }, function(error){
+        console.log(error);
+      });
     this.facebookStatus();
   }
 
@@ -62,15 +68,22 @@ export class Settings {
     let errorCallback = (e) => { this.locationEnabled = "Locatieservice niet actief"; };
     Diagnostic.isLocationEnabled().then(successCallback, errorCallback);
   }
+
   networkConnection(){
     // watch network for a disconnect
     //Vibration.vibrate(1000);
     Network.onDisconnect().subscribe(() => {
-      Toast.show("Opgelet! Er is geen netwerk beschikbaar!", '5000', 'top').subscribe(
+      Toast.show("Opgelet! Er is een verandering van je netwerk gedetecteerd!", '5000', 'top').subscribe(
         toast => {
           console.log(toast);
         });
     });
+  }
+
+  //Maak geofence aan op toestel van werknemer indien hij op instellingenpagina uitkomt
+  ionViewDidLoad(){
+    this.geofenceService.AddZones();
+    //this.facebookStatus();
   }
 
 }

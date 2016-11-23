@@ -49,6 +49,13 @@ export class GeofenceService {
       });
     });*/
 
+    /*Geofence.onTransitionReceived(){
+      function test(geofences){
+        geofences.forEach(function (geo) {
+          console.log('Geofence transition detected', geo);
+        });
+      }
+    }*/
 
 
       Geofence.addOrUpdate({

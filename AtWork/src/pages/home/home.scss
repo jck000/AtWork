@@ -15,9 +15,24 @@ page-home {
   float: left;
   display: block;
   margin-left: 42%;
+  margin-right: 42%;
   margin-bottom: 10px;
+  box-shadow: 3px 3px 10px #666;
+}
+.fingerprintbutton:active{
+  transform: translateY(2px);
+  box-shadow: 5px 5px 10px #666;
 }
 .fingerprinticon{
   font-size: 35px;
   color: red;
 }
+#TouchIDLabel{
+  text-align: center;
+  text-decoration: none;
+  font-family: Chalkboard;
+  font-size: 20px;
+  line-height: 0.1;
+  font-weight: normal;
+}
+
