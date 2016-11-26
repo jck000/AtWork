@@ -3,6 +3,7 @@ import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Geofence } from 'ionic-native';
 import { RequestToApi } from '../providers/request-to-api';
+import { Observable } from '@angular2/core';
 
 /*
   Generated class for the GeofenceService provider.
@@ -49,13 +50,17 @@ export class GeofenceService {
       });
     });*/
 
-    /*Geofence.onTransitionReceived(){
+    /*Geofence.onTransitionReceived().subscribe((data) =>{
+      console.log(data);
+    });*/
+
+  /*.then(function(geof){
       function test(geofences){
         geofences.forEach(function (geo) {
           console.log('Geofence transition detected', geo);
         });
       }
-    }*/
+    });*/
 
 
       Geofence.addOrUpdate({

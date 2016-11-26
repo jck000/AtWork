@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Facebook, Diagnostic, Toast, Device, Network, Vibration } from 'ionic-native';
 import { GeofenceService } from '../../providers/geofence-service';
+import {HomePage} from "../home/home";
 /*
   Generated class for the Settings page.
   @Author: Niels Bekkers

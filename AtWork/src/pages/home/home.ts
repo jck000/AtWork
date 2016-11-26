@@ -18,60 +18,41 @@ import { Geofence, TouchID, Toast, AndroidFingerprintAuth, Device, Network, Vibr
 export class HomePage {
 
   settings = Settings;
+  public vergrendeling;
+  public ontgrendelStatus;
 
   constructor(public navCtrl: NavController, public requestToApi: RequestToApi, public geofenceService: GeofenceService) {
 
     this.networkConnection();
+    this.vergrendel();
   }
 
   post(){
-    var platform = Device.device.manufacturer;
+    let ontgrendel = this.ontgrendelStatus;
+    if(ontgrendel == true ){
 
-    if (platform == "Apple"){
-      TouchID.verifyFingerprintWithCustomPasswordFallbackAndEnterPasswordLabel(
-        'Scan vingerafdruk / Voer code in!',
-        'Code invoeren')
-        .then(
-          res => this.voerPostUit(),
-          err => this.notAvailable()
-        );
+      this.voerPostUit();
     }
     else{
-      AndroidFingerprintAuth.isAvailable()
-        .then((result)=> {
-          if(result.isAvailable){
-            // it is available
-
-            AndroidFingerprintAuth.show({ clientId: "AtWork", clientSecret: "so_encrypted_much_secure_very_secret" })
-              .then(result => {
-                if(result.withFingerprint) {
-                  console.log('Successfully authenticated with fingerprint!');
-                  this.voerPostUit();
-                } else if(result.withPassword) {
-                  console.log('Successfully authenticated with backup password!');
-                  this.voerPostUit();
-                } else console.log('Didn\'t authenticate!');
-              })
-          } else {
-            // Android fingerprint is niet beschikbaar
-            this.notAvailable();
-          }
+      Toast.show("Gelieve eerst te ontgrendelen!", '3000', 'top').subscribe(
+        toast => {
+          console.log(toast);
         })
     }
   }
 
   delete(){
-    TouchID.verifyFingerprintWithCustomPasswordFallbackAndEnterPasswordLabel(
-      'Scan vingerafdruk / Voer code in!',
-      'Code invoeren')
-      .then(
-        res => this.voerDeleteUit(),
-        err => this.notAvailable()
-      );
-  }
+    let ontgrendel = this.ontgrendelStatus;
+    if(ontgrendel == true){
 
-  enter(){
-    this.geofenceService.AddZones();
+      this.voerDeleteUit();
+    }
+    else{
+      Toast.show("Gelieve eerst te ontgrendelen!", '3000', 'top').subscribe(
+        toast => {
+          console.log(toast);
+        })
+    }
   }
 
   touchID(){
@@ -82,64 +63,60 @@ export class HomePage {
         'Scan vingerafdruk / Voer code in!',
         'Code invoeren')
         .then(
-          res =>Toast.show("Succes!", '2000', 'top').subscribe(
-                  toast => {
-                              console.log(toast);
-                            }),
+          res =>this.ontgrendel(),
           err => this.notAvailable()
         );
     }
     else{
-
       AndroidFingerprintAuth.isAvailable()
         .then((result)=> {
           if(result.isAvailable){
             // it is available
-
             AndroidFingerprintAuth.show({ clientId: "myAppName", clientSecret: "so_encrypted_much_secure_very_secret" })
               .then(result => {
                 if(result.withFingerprint) {
-                  console.log('Successfully authenticated with fingerprint!');
+                  this.ontgrendel();
                 } else if(result.withPassword) {
-                  console.log('Successfully authenticated with backup password!');
-                } else console.log('Didn\'t authenticate!');
+                  this.ontgrendel();
+                } else this.notAvailable();
               })
-
-
           } else {
             // Android fingerprint is niet beschikbaar
             Toast.show("Android fingerprint is niet beschikbaar!", '2000', 'top').subscribe(
               toast => {
                 console.log(toast);
               });
+            this.notAvailable();
           }
         })
     }
   }
   voerPostUit(){
     this.requestToApi.postRequest();
-    Toast.show("Post-request succesvol uitgevoerd!", '2000', 'top').subscribe(
+    Toast.show("Succesvol ingeschreven op de server!", '2000', 'top').subscribe(
       toast => {
         console.log(toast);
       });
+    this.vergrendel();
   }
   voerDeleteUit(){
     this.requestToApi.deleteRequest();
-    Toast.show("Delete-request succesvol uitgevoerd!", '2000', 'top').subscribe(
+    Toast.show("Succesvol uitgeschreven op de server", '2000', 'top').subscribe(
       toast => {
         console.log(toast);
       });
+    this.vergrendel();
   }
   notAvailable(){
     Toast.show("Niet Beschikbaar!", '2000', 'top').subscribe(
       toast => {
         console.log(toast);
       });
+    this.vergrendel();
 
     //PinDialog werkt niet in Ionic 2, zit een bug in die niet opgelost wordt!
     //PinDialog.prompt('Enter your PIN', 'Verify PIN', ['OK', 'Cancel']);
   }
-
   networkConnection(){
     // watch network for a disconnect
     //Vibration.vibrate(1000);
@@ -150,6 +127,17 @@ export class HomePage {
         });
     });
   }
-
+  ontgrendel(){
+    this.ontgrendelStatus = true;
+    this.vergrendeling = "Ontgrendeld";
+    Toast.show("Succesvol Ontgrendeld!", '3000', 'top').subscribe(
+      toast => {
+        console.log(toast);
+      })
+  }
+  vergrendel(){
+    this.ontgrendelStatus = false;
+    this.vergrendeling = "Vergrendeld";
+  }
 }
 

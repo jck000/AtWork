@@ -24,11 +24,12 @@
     <br/><hr/>
   </ion-card-header>
   <ion-card-content id="settingsButton">
-    <p id="TouchIDLabel">TouchID</p>
+    <p class="TouchIDLabel">TouchID</p>
     <button ion-button class="fingerprintbutton" (click)="touchID()"><ion-icon class="fingerprinticon" name="finger-print"></ion-icon></button>
-    <button ion-button color="light" full primary (click)="post()" round>POST-request</button>
-    <button ion-button color="danger" full primary (click)="delete()" round>DELETE-request</button>
+    <button ion-button color="light" full primary (click)="post()" round>Aanmelden</button>
+    <button ion-button color="danger" full primary (click)="delete()" round>Afmelden</button>
     <!--<button ion-button color="light" full primary (click)="enter()" round>Maak geofence aan</button>-->
+    <p><b>Status: <u>{{vergrendeling}}</u></b></p>
   </ion-card-content>
 
 </ion-content>
