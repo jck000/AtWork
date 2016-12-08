@@ -18,7 +18,6 @@ export class Settings {
   public Manufacturer;
   public locationEnabled;
   public fbLogin;
-  //public status;
 
   constructor(public navCtrl: NavController, public geofenceService: GeofenceService) {
 
@@ -61,7 +60,6 @@ export class Settings {
         console.log("current status: ", (status.status).toString());
         this.fbLogin = (status.status).toString();
       });
-
   }
 
   toestelDiagnose(){
@@ -83,8 +81,8 @@ export class Settings {
 
   //Maak geofence aan op toestel van werknemer indien hij op instellingenpagina uitkomt
   ionViewDidLoad(){
-    this.geofenceService.AddZones();
-    //this.facebookStatus();
+    //this.geofenceService.AddZones();
+    this.facebookStatus();
   }
 
 }

@@ -5,6 +5,7 @@ import { Settings } from '../settings/settings';
 import { RequestToApi } from '../../providers/request-to-api';
 import { GeofenceService } from '../../providers/geofence-service';
 import { Geofence, TouchID, Toast, AndroidFingerprintAuth, Device, Network, Vibration } from 'ionic-native';
+import { LocationTracker } from '../../providers/location-tracker';
 
 /*
  Generated class for the Home page.
@@ -21,7 +22,7 @@ export class HomePage {
   public vergrendeling;
   public ontgrendelStatus;
 
-  constructor(public navCtrl: NavController, public requestToApi: RequestToApi, public geofenceService: GeofenceService) {
+  constructor(public navCtrl: NavController, public requestToApi: RequestToApi, public geofenceService: GeofenceService, public locationTracker: LocationTracker) {
 
     this.networkConnection();
     this.vergrendel();
@@ -56,40 +57,52 @@ export class HomePage {
   }
 
   touchID(){
-    var platform = Device.device.manufacturer;
+    this.locationTracker.startTracking();
+    var afstand = this.locationTracker.calculate();
+    if(afstand < "1"){                                  //Indien afstand kleiner is dan 1KM van het bedrijf
 
-    if (platform == "Apple"){
-      TouchID.verifyFingerprintWithCustomPasswordFallbackAndEnterPasswordLabel(
-        'Scan vingerafdruk / Voer code in!',
-        'Code invoeren')
-        .then(
-          res =>this.ontgrendel(),
-          err => this.notAvailable()
-        );
+      var platform = Device.device.manufacturer;
+
+      if (platform == "Apple"){
+        TouchID.verifyFingerprintWithCustomPasswordFallbackAndEnterPasswordLabel(
+          'Scan vingerafdruk / Voer code in!',
+          'Code invoeren')
+          .then(
+            res =>this.ontgrendel(),
+            err => this.notAvailable()
+          );
+      }
+      else{
+        AndroidFingerprintAuth.isAvailable()
+          .then((result)=> {
+            if(result.isAvailable){
+              // it is available
+              AndroidFingerprintAuth.show({ clientId: "myAppName", clientSecret: "so_encrypted_much_secure_very_secret" })
+                .then(result => {
+                  if(result.withFingerprint) {
+                    this.ontgrendel();
+                  } else if(result.withPassword) {
+                    this.ontgrendel();
+                  } else this.notAvailable();
+                })
+            } else {
+              // Android fingerprint is niet beschikbaar
+              Toast.show("Android fingerprint is niet beschikbaar!", '2000', 'top').subscribe(
+                toast => {
+                  console.log(toast);
+                });
+              this.notAvailable();
+            }
+          })
+      }
     }
     else{
-      AndroidFingerprintAuth.isAvailable()
-        .then((result)=> {
-          if(result.isAvailable){
-            // it is available
-            AndroidFingerprintAuth.show({ clientId: "myAppName", clientSecret: "so_encrypted_much_secure_very_secret" })
-              .then(result => {
-                if(result.withFingerprint) {
-                  this.ontgrendel();
-                } else if(result.withPassword) {
-                  this.ontgrendel();
-                } else this.notAvailable();
-              })
-          } else {
-            // Android fingerprint is niet beschikbaar
-            Toast.show("Android fingerprint is niet beschikbaar!", '2000', 'top').subscribe(
-              toast => {
-                console.log(toast);
-              });
-            this.notAvailable();
-          }
-        })
+      Toast.show("U bent niet in de buurt van het bedrijf! Begeef jezelf naar een straal van 1 kilometer om in/uit te checken!", '5000', 'top').subscribe(
+        toast => {
+          console.log(toast);
+        });
     }
+
   }
   voerPostUit(){
     this.requestToApi.postRequest();
@@ -119,7 +132,7 @@ export class HomePage {
   }
   networkConnection(){
     // watch network for a disconnect
-    //Vibration.vibrate(1000);
+    //Vibration.vibrate(1000);      //vibrate werkt niet in IOS, wel in Android!
     Network.onDisconnect().subscribe(() => {
       Toast.show("Opgelet! Er is een verandering van je netwerk gedetecteerd!", '5000', 'top').subscribe(
         toast => {
@@ -138,6 +151,11 @@ export class HomePage {
   vergrendel(){
     this.ontgrendelStatus = false;
     this.vergrendeling = "Vergrendeld";
+  }
+
+  ionViewWillEnter(){     //indien pagina geopend word
+    this.vergrendel();
+    this.locationTracker.startTracking();
   }
 }
 

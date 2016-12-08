@@ -15,9 +15,9 @@
   <ion-card>
     <ion-card-content>
       Gelieve je in/uit de werkzone te begeven!
-      <hr/>Deze applicatie gaat jezelf automatisch in- en uitchecken in een bedrijf.
-      Om je aanwezigheid te bevestigen maak je kortstondig gebruik van je vingerafdruk of alternatieve pincode<hr/>
-      Bij <b>eerste gebruik</b> van deze applicatie, gelieve je te verbinden met Facebook!
+      <hr/>Deze applicatie gaat jezelf in- en uitchecken in een bedrijf.
+      Om je aanwezigheid of afwezigheid te bevestigen ontgrendel je eerst d.m.v je vingerafdruk en druk je vervolgens op de gewenste situatie<hr/>
+      Bij het <b>eerste gebruik</b> van deze applicatie, gelieve je te verbinden met Facebook!
     </ion-card-content>
   </ion-card>
   <ion-card-header>
@@ -28,7 +28,6 @@
     <button ion-button class="fingerprintbutton" (click)="touchID()"><ion-icon class="fingerprinticon" name="finger-print"></ion-icon></button>
     <button ion-button color="light" full primary (click)="post()" round>Aanmelden</button>
     <button ion-button color="danger" full primary (click)="delete()" round>Afmelden</button>
-    <!--<button ion-button color="light" full primary (click)="enter()" round>Maak geofence aan</button>-->
     <p><b>Status: <u>{{vergrendeling}}</u></b></p>
   </ion-card-content>
 

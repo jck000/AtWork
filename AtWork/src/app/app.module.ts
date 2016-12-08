@@ -5,6 +5,7 @@ import { HomePage } from '../pages/home/home';
 import { Settings } from '../pages/settings/settings';
 import { RequestToApi } from '../providers/request-to-api';
 import { GeofenceService } from '../providers/geofence-service';
+import { LocationTracker } from '../providers/location-tracker';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,6 @@ import { GeofenceService } from '../providers/geofence-service';
     HomePage,
     Settings
   ],
-  providers: [RequestToApi, GeofenceService]
+  providers: [RequestToApi, GeofenceService, LocationTracker]
 })
 export class AppModule {}
