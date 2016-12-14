@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Facebook, Diagnostic, Toast, Device, Network, Vibration } from 'ionic-native';
 import { GeofenceService } from '../../providers/geofence-service';
-import {HomePage} from "../home/home";
+import { HomePage } from "../home/home";
 /*
-  Generated class for the Settings page.
+  Class for the Settings page.
   @Author: Niels Bekkers
 */
 @Component({
@@ -39,6 +39,7 @@ export class Settings {
         console.log(error);
       });
     this.facebookStatus();
+    this.navCtrl.push(HomePage);
   }
 
   logout(){
@@ -76,6 +77,7 @@ export class Settings {
         toast => {
           console.log(toast);
         });
+      Vibration.vibrate(1000);
     });
   }
 

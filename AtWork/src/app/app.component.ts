@@ -17,26 +17,12 @@ export class MyApp {
 
       document.addEventListener('deviceready', function () {
         // window.geofence is now available
-
-        /*Geofence.onTransitionReceived().subscribe((data) =>{
-          alert("TESTTTTTT");
-        });
-
-        Geofence.onNotificationClicked().subscribe((data) =>{
-          alert("TESTTTTTT");
-        });*/
-
-
         Geofence.initialize().then(function () {
           console.log("Successful initialization");
         }, function (error) {
           console.log("Error", error);
         });
-
-
-
       }, false);
-
 
       StatusBar.styleDefault();
       Splashscreen.hide();

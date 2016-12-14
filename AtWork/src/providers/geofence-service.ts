@@ -6,7 +6,7 @@ import { RequestToApi } from '../providers/request-to-api';
 import { Observable } from '@angular2/core';
 
 /*
-  Generated class for the GeofenceService provider.
+  Class for the GeofenceService provider.
  @Author: Niels Bekkers
 */
 @Injectable()

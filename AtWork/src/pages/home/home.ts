@@ -4,11 +4,11 @@ import { NavController } from 'ionic-angular';
 import { Settings } from '../settings/settings';
 import { RequestToApi } from '../../providers/request-to-api';
 import { GeofenceService } from '../../providers/geofence-service';
-import { Geofence, TouchID, Toast, AndroidFingerprintAuth, Device, Network, Vibration } from 'ionic-native';
+import { TouchID, Toast, AndroidFingerprintAuth, Device, Network, Vibration } from 'ionic-native';
 import { LocationTracker } from '../../providers/location-tracker';
 
 /*
- Generated class for the Home page.
+ Class for the Home page.
  @Author: Niels Bekkers
  */
 
@@ -77,7 +77,7 @@ export class HomePage {
           .then((result)=> {
             if(result.isAvailable){
               // it is available
-              AndroidFingerprintAuth.show({ clientId: "myAppName", clientSecret: "so_encrypted_much_secure_very_secret" })
+              AndroidFingerprintAuth.show({ clientId: "AtWork", clientSecret: "so_encrypted_much_secure_very_secret" })
                 .then(result => {
                   if(result.withFingerprint) {
                     this.ontgrendel();
@@ -101,6 +101,7 @@ export class HomePage {
         toast => {
           console.log(toast);
         });
+      Vibration.vibrate(1000);
     }
 
   }
@@ -152,6 +153,34 @@ export class HomePage {
     this.ontgrendelStatus = false;
     this.vergrendeling = "Vergrendeld";
   }
+
+
+  //testfunctie om de android fingerprint te testen
+  /*test(){
+    AndroidFingerprintAuth.isAvailable()
+      .then((result)=> {
+        if(result.isAvailable){
+          // it is available
+          AndroidFingerprintAuth.show({ clientId: "AtWork", clientSecret: "so_encrypted_much_secure_very_secret" })
+            .then(result => {
+              if(result.withFingerprint) {
+                alert("met fingerprint");
+              } else if(result.withPassword) {
+                alert("met password");
+              } else alert("niet beschikbaar");
+            })
+        } else {
+          // Android fingerprint is niet beschikbaar
+          Toast.show("Android fingerprint is niet beschikbaar!", '2000', 'top').subscribe(
+            toast => {
+              console.log(toast);
+            });
+        }
+      })
+  }*/
+
+
+
 
   ionViewWillEnter(){     //indien pagina geopend word
     this.vergrendel();

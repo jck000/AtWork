@@ -4,7 +4,7 @@ import { Geolocation, Geoposition, BackgroundGeolocation } from 'ionic-native';
 import 'rxjs/add/operator/filter';
 
 /*
- Generated class for the LocationService provider.
+ Class for the LocationService provider.
  @Author: Niels Bekkers
  */
 

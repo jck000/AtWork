@@ -1,10 +1,10 @@
 import { Injectable, NgZone } from '@angular/core';
 import 'rxjs/add/operator/filter';
-import {Http} from '@angular/http';
+import { Http } from '@angular/http';
 import { Device } from 'ionic-native';
 
 /*
- Generated class for the RequestToApi provider.
+ Class for the RequestToApi provider.
  @Author: Niels Bekkers
  */
 
@@ -29,7 +29,7 @@ export class RequestToApi {
     var berekenSeconden = new Date().getSeconds();
     var totaleTijd = berekenUren+":"+berekenMinuten+":"+berekenSeconden;
 
-    let url = 'http://192.168.0.141/api.php/werknemers';
+    let url = 'http://192.168.0.137/api.php/werknemers';
 
     var data = JSON.stringify({deviceID: ID, datum: resultDatum, tijd: totaleTijd});
 
@@ -45,7 +45,7 @@ export class RequestToApi {
 
     var ID = Device.device.uuid;
 
-    let url = 'http://192.168.0.141/api.php/werknemers/' + ID;
+    let url = 'http://192.168.0.137/api.php/werknemers/' + ID;
 
     this.http.delete(url)
       .subscribe(res =>
