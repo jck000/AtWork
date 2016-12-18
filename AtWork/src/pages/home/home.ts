@@ -63,7 +63,7 @@ export class HomePage {
 
       var platform = Device.device.manufacturer;
 
-      if (platform == "Apple"){
+      if (platform == "Apple"){                         //Controleer het gebruikte platform, afhankelijk toon verschillende TouchID verificatie
         TouchID.verifyFingerprintWithCustomPasswordFallbackAndEnterPasswordLabel(
           'Scan vingerafdruk / Voer code in!',
           'Code invoeren')
@@ -133,7 +133,7 @@ export class HomePage {
   }
   networkConnection(){
     // watch network for a disconnect
-    //Vibration.vibrate(1000);      //vibrate werkt niet in IOS, wel in Android!
+    //Vibration.vibrate(1000);      //vibration patroon werkt niet in IOS, wel in Android!
     Network.onDisconnect().subscribe(() => {
       Toast.show("Opgelet! Er is een verandering van je netwerk gedetecteerd!", '5000', 'top').subscribe(
         toast => {
@@ -153,34 +153,6 @@ export class HomePage {
     this.ontgrendelStatus = false;
     this.vergrendeling = "Vergrendeld";
   }
-
-
-  //testfunctie om de android fingerprint te testen
-  /*test(){
-    AndroidFingerprintAuth.isAvailable()
-      .then((result)=> {
-        if(result.isAvailable){
-          // it is available
-          AndroidFingerprintAuth.show({ clientId: "AtWork", clientSecret: "so_encrypted_much_secure_very_secret" })
-            .then(result => {
-              if(result.withFingerprint) {
-                alert("met fingerprint");
-              } else if(result.withPassword) {
-                alert("met password");
-              } else alert("niet beschikbaar");
-            })
-        } else {
-          // Android fingerprint is niet beschikbaar
-          Toast.show("Android fingerprint is niet beschikbaar!", '2000', 'top').subscribe(
-            toast => {
-              console.log(toast);
-            });
-        }
-      })
-  }*/
-
-
-
 
   ionViewWillEnter(){     //indien pagina geopend word
     this.vergrendel();

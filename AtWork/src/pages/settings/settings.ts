@@ -81,9 +81,8 @@ export class Settings {
     });
   }
 
-  //Maak geofence aan op toestel van werknemer indien hij op instellingenpagina uitkomt
   ionViewDidLoad(){
-    //this.geofenceService.AddZones();
+    //this.geofenceService.AddZones();        //Geofence kan geactiveerd worden als bug eruit gehaald is
     this.facebookStatus();
   }
 
