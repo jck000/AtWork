@@ -16,6 +16,7 @@ export class RequestToApi {
 
   }
 
+  //Voer POST request uit naar eigen API-server
   postRequest(){
 
     var ID = Device.device.uuid;
@@ -41,6 +42,7 @@ export class RequestToApi {
       );
   }
 
+  //Voer DELETE request uit naar eigen API-server
   deleteRequest(){
 
     var ID = Device.device.uuid;

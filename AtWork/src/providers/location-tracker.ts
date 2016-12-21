@@ -20,6 +20,7 @@ export class LocationTracker {
 
   }
 
+  //Bereken afstand (via functie) en stop in variabele
   calculate(){
     this.startTracking();
     this.distance(51.055774, 5.287059, this.lat, this.lng, "K");

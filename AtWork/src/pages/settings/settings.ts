@@ -31,6 +31,7 @@ export class Settings {
       this.fbLogin;
   }
 
+  //Inloggen op Facebook
   login() {
     Facebook.login(['public_profile'])
       .then(function(response){
@@ -42,6 +43,7 @@ export class Settings {
     this.navCtrl.push(HomePage);
   }
 
+  //Uitloggen op Facebook
   logout(){
     Facebook.logout()
       .then(function(response) {
@@ -55,6 +57,7 @@ export class Settings {
     this.facebookStatus();
   }
 
+  //Haal huidige inlogstatus op van Facebook
   facebookStatus(){
     Facebook.getLoginStatus().then(
       (status) => {
@@ -63,12 +66,14 @@ export class Settings {
       });
   }
 
+  //Controleer Locatieservice
   toestelDiagnose(){
     let successCallback = (isAvailable) => { this.locationEnabled = "Locatieservice actief"; };
     let errorCallback = (e) => { this.locationEnabled = "Locatieservice niet actief"; };
     Diagnostic.isLocationEnabled().then(successCallback, errorCallback);
   }
 
+  //Controleer netwerk
   networkConnection(){
     // watch network for a disconnect
     //Vibration.vibrate(1000);
